@@ -10,7 +10,6 @@ import java.util.HashMap;
 import static core.YandexSpellerConstants.*;
 
 /**
- * Created by yulia_atlasova@epam.com on 22/06/2017.
  * Describes Yandex Speller SOAP request.
  */
 public class YandexSpellerSOAP {
@@ -23,7 +22,6 @@ public class YandexSpellerSOAP {
             .setBaseUri("http://speller.yandex.net/services/spellservice")
             .build();
 
-    //builder pattern
     private YandexSpellerSOAP(){}
 
     private HashMap<String, String> params = new HashMap<>();
@@ -41,21 +39,21 @@ public class YandexSpellerSOAP {
         }
 
         public YandexSpellerSOAP.SOAPBuilder options(String options) {
-            spellerSOAP.params.put(PARAM_OPTIONS, "\"" + options + "\"");
+            spellerSOAP.params.put(PARAM_OPTIONS, "'" + options + "'");
             return this;
         }
 
         public YandexSpellerSOAP.SOAPBuilder language(Languages language) {
-            spellerSOAP.params.put(PARAM_LANG,   "\"" + language.languageCode + "\"");
+            spellerSOAP.params.put(PARAM_LANG,   "'" + language.languageCode + "'");
             return this;
         }
 
         public Response callSOAP() {
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spel=\"http://speller.yandex.net/services/spellservice\">\n"
+            String soapBody = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
                     + "   <soapenv:Header/>\n"
                     + "   <soapenv:Body>\n"
-                    + "      <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "\"en\""))
-                    + " options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "\"0\""))+ " format=\"\">\n"
+                    + "      <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
+                    + " options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'"))+ " format=''>\n"
                     + "         <spel:text>"+ (spellerSOAP.params.getOrDefault(PARAM_TEXT, WRONG_WORD_EN)) + "</spel:text>\n"
                     + "      </spel:CheckTextRequest>\n"
                     + "   </soapenv:Body>\n"
@@ -65,8 +63,9 @@ public class YandexSpellerSOAP {
             return RestAssured.with()
                     .spec(spellerSOAPreqSpec)
                     .body(soapBody)
-                    .log().all().with()
-                    .post().prettyPeek();
+                    .log().all()
+                    .with().post()
+                    .prettyPeek();
         }
     }
 
