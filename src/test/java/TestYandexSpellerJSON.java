@@ -40,7 +40,10 @@ public class TestYandexSpellerJSON {
                     .assertThat()
                     .statusCode(HttpStatus.SC_OK)
                     .body(Matchers.allOf(
-                            Matchers.stringContainsInOrder(Arrays.asList(WRONG_WORD_EN, RIGHT_WORD_EN)),
+                            Matchers.stringContainsInOrder(Arrays.asList(
+                                    WRONG_WORD_EN,
+                                    RIGHT_WORD_EN
+                            )),
                             Matchers.containsString("\"code\":1")))
                     .contentType(ContentType.JSON)
                     .time(lessThan(20000L)); // Milliseconds

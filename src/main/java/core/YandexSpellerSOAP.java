@@ -21,11 +21,12 @@ public class YandexSpellerSOAP {
             .setContentType("text/xml;charset=UTF-8")
             .addHeader(
                     "SOAPAction",
-                    "http://speller.yandex.net/services/spellservice/checkText")
+                    YANDEX_SPELLER_API_METHOD_checkText)
             .addHeader(
                     "Host",
-                    "speller.yandex.net")
-            .setBaseUri("http://speller.yandex.net/services/spellservice")
+                    YANDEX_SPELLER_HOST)
+            .setBaseUri(
+                    YANDEX_SPELLER_URL)
             .build();
 
     private YandexSpellerSOAP(){}
@@ -54,14 +55,21 @@ public class YandexSpellerSOAP {
             return this;
         }
 
+        public YandexSpellerSOAP.SOAPBuilder format(Format format) {
+            spellerSOAP.params.put(PARAM_FORMAT,   "'" + format.name() + "'");
+            return this;
+        }
+
         public Response callSOAP() {
             String soapBody =
                       "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' "
-                    + "  xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
+                    + "  xmlns:spel='" + YANDEX_SPELLER_URL + "'>\n"
                     + "  <soapenv:Header/>\n"
                     + "  <soapenv:Body>\n"
-                    + "    <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
-                    + "      options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'")) + " format=''>\n"
+                    + "    <spel:CheckTextRequest "
+                    + "        lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
+                    + "        options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'"))
+                    + "        format=" + (spellerSOAP.params.getOrDefault(PARAM_FORMAT, "''")) + ">\n"
                     + "      <spel:text>"+ (spellerSOAP.params.getOrDefault(PARAM_TEXT, WRONG_WORD_EN)) + "</spel:text>\n"
                     + "    </spel:CheckTextRequest>\n"
                     + "  </soapenv:Body>\n"
