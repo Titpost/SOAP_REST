@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static core.YandexSpellerConstants.*;
+import static constants.YandexSpellerConstants.*;
 
 /**
  * try to test SOAP via RestAssured

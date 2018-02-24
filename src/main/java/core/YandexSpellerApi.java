@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import static core.YandexSpellerConstants.*;
+import static constants.YandexSpellerConstants.*;
 import static org.hamcrest.Matchers.lessThan;
 
 /**

@@ -7,7 +7,7 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.HashMap;
 
-import static core.YandexSpellerConstants.*;
+import static constants.YandexSpellerConstants.*;
 
 /**
  * Describes Yandex Speller SOAP request.
@@ -56,11 +56,12 @@ public class YandexSpellerSOAP {
 
         public Response callSOAP() {
             String soapBody =
-                      "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
+                      "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' "
+                    + "  xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
                     + "  <soapenv:Header/>\n"
                     + "  <soapenv:Body>\n"
                     + "    <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
-                    + "      options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'"))+ " format=''>\n"
+                    + "      options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'")) + " format=''>\n"
                     + "      <spel:text>"+ (spellerSOAP.params.getOrDefault(PARAM_TEXT, WRONG_WORD_EN)) + "</spel:text>\n"
                     + "    </spel:CheckTextRequest>\n"
                     + "  </soapenv:Body>\n"

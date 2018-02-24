@@ -11,7 +11,7 @@ import java.util.List;
 
 import static core.YandexSpellerApi.getYandexSpellerAnswers;
 import static core.YandexSpellerApi.successResponse;
-import static core.YandexSpellerConstants.*;
+import static constants.YandexSpellerConstants.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
