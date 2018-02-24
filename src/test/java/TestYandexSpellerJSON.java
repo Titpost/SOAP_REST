@@ -9,6 +9,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static core.YandexSpellerApi.getYandexSpellerAnswers;
+import static core.YandexSpellerApi.successResponse;
 import static core.YandexSpellerConstants.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,7 +27,7 @@ public class TestYandexSpellerJSON {
                     .queryParam(PARAM_TEXT, WRONG_WORD_EN)
                     .params(PARAM_LANG, Languages.EN, "CustomParameter", "valueOfParam")
                     .accept(ContentType.JSON)
-                    .auth().basic("abcName", "abcPassword")
+                    .auth().basic("name", "password")
                     .header("custom header1", "header1.value")
                     .and()
                     .body("some body payroll")
@@ -122,7 +124,7 @@ public class TestYandexSpellerJSON {
                 .given(YandexSpellerApi.baseRequestConfiguration())
                 .param(PARAM_TEXT, WRONG_WORD_EN)
                 .get().prettyPeek()
-                .then().specification(YandexSpellerApi.successResponse());
+                .then().specification(successResponse());
     }
 
     @Test
@@ -132,16 +134,18 @@ public class TestYandexSpellerJSON {
                         .options("5")
                         .text(WRONG_WORD_UK)
                         .callApi()
-                .then().specification(YandexSpellerApi.successResponse());
+                .then().specification(successResponse());
     }
 
 
     //validate an object we've got in API response
     @Test
     public void validateSpellerAnswerAsAnObject() {
-        List<YandexSpellerAnswer> answers =
-                YandexSpellerApi.getYandexSpellerAnswers(
-                        YandexSpellerApi.with().text("motherr fatherr," + WRONG_WORD_EN).callApi());
+        List<YandexSpellerAnswer> answers = getYandexSpellerAnswers(
+                YandexSpellerApi
+                        .with()
+                            .text("motherr fatherr," + WRONG_WORD_EN).callApi());
+
         assertThat("expected number of answers is wrong.", answers.size(), equalTo(3));
         assertThat(answers.get(0).word, equalTo("motherr"));
         assertThat(answers.get(1).word, equalTo("fatherr"));
@@ -154,24 +158,24 @@ public class TestYandexSpellerJSON {
     @Test
     public void optionsValueIgnoreDigits(){
         List<YandexSpellerAnswer> answers =
-                YandexSpellerApi.getYandexSpellerAnswers(
-                        YandexSpellerApi.with().
-                                text(WORD_WITH_LEADING_DIGITS)
-                                .options("2")
-                                .callApi());
+                getYandexSpellerAnswers(
+                        YandexSpellerApi
+                                .with()
+                                    .text(WORD_WITH_LEADING_DIGITS)
+                                    .options("2")
+                                    .callApi());
         assertThat("expected number of answers is wrong.", answers.size(), equalTo(0));
     }
 
     @Test
     public void optionsIgnoreWrongCapital(){
         List<YandexSpellerAnswer> answers =
-                YandexSpellerApi.getYandexSpellerAnswers(
-                        YandexSpellerApi.with().
-                                text(WORD_WITH_WRONG_CAPITAL)
-                                .options("512")
-                                .callApi());
+                getYandexSpellerAnswers(
+                        YandexSpellerApi
+                                .with()
+                                    .text(WORD_WITH_WRONG_CAPITAL)
+                                    .options("512")
+                                    .callApi());
         assertThat("expected number of answers is wrong.", answers.size(), equalTo(0));
     }
-
-
 }

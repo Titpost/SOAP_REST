@@ -15,10 +15,16 @@ import static core.YandexSpellerConstants.*;
 public class YandexSpellerSOAP {
 
     static RequestSpecification spellerSOAPreqSpec = new RequestSpecBuilder()
-            .addHeader("Accept-Encoding", "gzip,deflate")
+            .addHeader(
+                    "Accept-Encoding",
+                    "gzip,deflate")
             .setContentType("text/xml;charset=UTF-8")
-            .addHeader("SOAPAction", "http://speller.yandex.net/services/spellservice/checkText")
-            .addHeader("Host", "speller.yandex.net")
+            .addHeader(
+                    "SOAPAction",
+                    "http://speller.yandex.net/services/spellservice/checkText")
+            .addHeader(
+                    "Host",
+                    "speller.yandex.net")
             .setBaseUri("http://speller.yandex.net/services/spellservice")
             .build();
 
@@ -27,7 +33,7 @@ public class YandexSpellerSOAP {
     private HashMap<String, String> params = new HashMap<>();
 
     public static class SOAPBuilder {
-        YandexSpellerSOAP spellerSOAP;
+        final YandexSpellerSOAP spellerSOAP;
 
         private SOAPBuilder(YandexSpellerSOAP soap) {
             spellerSOAP = soap;
@@ -49,14 +55,15 @@ public class YandexSpellerSOAP {
         }
 
         public Response callSOAP() {
-            String soapBody = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
-                    + "   <soapenv:Header/>\n"
-                    + "   <soapenv:Body>\n"
-                    + "      <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
-                    + " options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'"))+ " format=''>\n"
-                    + "         <spel:text>"+ (spellerSOAP.params.getOrDefault(PARAM_TEXT, WRONG_WORD_EN)) + "</spel:text>\n"
-                    + "      </spel:CheckTextRequest>\n"
-                    + "   </soapenv:Body>\n"
+            String soapBody =
+                      "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:spel='http://speller.yandex.net/services/spellservice'>\n"
+                    + "  <soapenv:Header/>\n"
+                    + "  <soapenv:Body>\n"
+                    + "    <spel:CheckTextRequest lang=" + (spellerSOAP.params.getOrDefault(PARAM_LANG, "'en'"))
+                    + "      options=" + (spellerSOAP.params.getOrDefault(PARAM_OPTIONS, "'0'"))+ " format=''>\n"
+                    + "      <spel:text>"+ (spellerSOAP.params.getOrDefault(PARAM_TEXT, WRONG_WORD_EN)) + "</spel:text>\n"
+                    + "    </spel:CheckTextRequest>\n"
+                    + "  </soapenv:Body>\n"
                     + "</soapenv:Envelope>";
 
 
