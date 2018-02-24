@@ -18,7 +18,12 @@ public class TestYandexSpellerSOAP {
                     .text(WRONG_WORD_EN)
                     .callSOAP()
                     .then()
-                    .body(Matchers.stringContainsInOrder(Arrays.asList(WRONG_WORD_EN, RIGHT_WORD_EN)));
+                    .body(Matchers.stringContainsInOrder(
+                            Arrays.asList(
+                                    WRONG_WORD_EN,
+                                    RIGHT_WORD_EN
+                            )
+                    ));
     }
 
     @Test
@@ -30,6 +35,11 @@ public class TestYandexSpellerSOAP {
                     .options("6")
                     .callSOAP()
                     .then()
-                    .body(Matchers.stringContainsInOrder(Arrays.asList(WRONG_WORD_EN, RIGHT_WORD_EN)));
+                    .body(Matchers.stringContainsInOrder(
+                            Arrays.asList(
+                                    WRONG_WORD_EN,
+                                    RIGHT_WORD_EN
+                            )
+                    ));
     }
 }

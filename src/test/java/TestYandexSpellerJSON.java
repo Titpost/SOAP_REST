@@ -56,7 +56,7 @@ public class TestYandexSpellerJSON {
                     .log().everything()
                 .get(YANDEX_SPELLER_API_URI)
                     .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //POST
         RestAssured
@@ -65,7 +65,7 @@ public class TestYandexSpellerJSON {
                     .log().everything()
                 .post(YANDEX_SPELLER_API_URI)
                     .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //HEAD
         RestAssured
@@ -74,7 +74,7 @@ public class TestYandexSpellerJSON {
                     .log().everything()
                 .head(YANDEX_SPELLER_API_URI)
                     .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //OPTIONS
         RestAssured
@@ -83,7 +83,7 @@ public class TestYandexSpellerJSON {
                     .log().everything()
                 .options(YANDEX_SPELLER_API_URI)
                 .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //PUT
         RestAssured
@@ -92,7 +92,7 @@ public class TestYandexSpellerJSON {
                     .log().everything()
                 .put(YANDEX_SPELLER_API_URI)
                     .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //PATCH
         RestAssured
@@ -102,7 +102,7 @@ public class TestYandexSpellerJSON {
                     .everything()
                 .patch(YANDEX_SPELLER_API_URI)
                     .prettyPeek();
-        System.out.println("\n=====================================================================");
+        System.out.println(delimeter);
 
         //DELETE
         RestAssured
